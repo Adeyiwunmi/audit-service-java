@@ -29,7 +29,7 @@ public class AuditLogAdapter {
         auditLog.setAuditDate(auditLogEvent.getAuditDate());
         auditLog.setAuditDateTime(auditLogEvent.getAuditDateTime());
         auditLog.setActionPerformed(auditLogEvent.getActionPerformed());
-        auditLog.setPerformedBy(auditLogEvent.getPerformedBy());
+        auditLog.setUserName(auditLogEvent.getUserName());
         auditLog.setRemoteAddress(auditLogEvent.getRemoteAddress());
         auditLog.setViaAPI(auditLogEvent.isViaAPI());
         auditLog.setId(UUID.randomUUID().toString().replace("-", ""));

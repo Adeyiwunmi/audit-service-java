@@ -70,8 +70,9 @@ public class AuditLogController {
                                                @RequestParam("sortProperty") String sortProperty,
                                                @RequestParam("sortType") String sortType,
                                                @RequestParam("auditActionTypeId") String auditActionTypeId,
+                                               @RequestParam("userName") String userName,
                                                HttpServletResponse httpServletResponse) {
-        return auditLogService.getAuditTrails(keyword, fromDate, endDate, auditActionId, page, size, sortProperty, sortType, auditActionTypeId, httpServletResponse);
+        return auditLogService.getAuditTrails(keyword, fromDate, endDate, auditActionId, page, size, sortProperty, sortType, auditActionTypeId,userName, httpServletResponse);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/all-audit-actions", produces = "application/json")

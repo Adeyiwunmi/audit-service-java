@@ -89,6 +89,7 @@ public class AuditLogServiceImpl implements AuditLogService {
                                                String sortProperty,
                                                String sorting,
                                                String auditActionTypeId,
+                                               String userName,
                                                HttpServletResponse httpServletResponse) {
 
         try {
@@ -101,6 +102,9 @@ public class AuditLogServiceImpl implements AuditLogService {
             }
             if (!StringUtils.isEmpty(fromDate) && !StringUtils.isEmpty(endDate)) {
                 filterCriteria.add(new QueryFieldDto(null, "DateTime", "auditDate", fromDate, endDate));
+            }
+            if (!StringUtils.isEmpty(userName)) {
+                filterCriteria.add(new QueryFieldDto(auditActionId, "Contains", "userName", null, null));
             }
             if (!StringUtils.isEmpty(keyword)) {
                 filterCriteria.add(new QueryFieldDto(keyword, "Contains", "actionPerformed", null, null));

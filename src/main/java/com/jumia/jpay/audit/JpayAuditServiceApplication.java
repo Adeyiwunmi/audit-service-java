@@ -1,5 +1,6 @@
 package com.jumia.jpay.audit;
 
+import com.jumia.jpay.audit.util.DatabaseSeederUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;

@@ -24,11 +24,20 @@ public class AuditLog {
     private long auditDateTime;
     private String auditActionId;
     private String auditActionTypeId;
-    private String performedBy;
+    private String userName;
     private boolean viaAPI;
     private String remoteAddress;
     private String serviceName;
+    private String owner;
 
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
 
     public String getAuditActionId() {
         return auditActionId;
@@ -87,12 +96,12 @@ public class AuditLog {
     }
 
 
-    public String getPerformedBy() {
-        return performedBy;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setPerformedBy(String performedBy) {
-        this.performedBy = performedBy;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public boolean isViaAPI() {
@@ -125,7 +134,7 @@ public class AuditLog {
         dto.setAuditDate(getAuditDate() == 0 ? null : new LocalDate(getAuditDate()).toString("MM/dd/YYYY"));
         dto.setAuditDateTime(getAuditDateTime() == 0 ? null : new LocalDateTime(getAuditDateTime()).toString("MM/dd/YYYY HH:mm:ss"));
         dto.setActionPerformed(getActionPerformed());
-        dto.setPerformedBy(getPerformedBy());
+        dto.setUserName(getUserName());
         dto.setRemoteAddress(getRemoteAddress());
         dto.setViaAPI(isViaAPI());
         dto.setId(getId());

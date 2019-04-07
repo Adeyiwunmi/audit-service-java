@@ -43,7 +43,7 @@ public class AuditLogAdapterTests {
         auditLogEvent.setAuditActionTypeId(AuditActionTypeReferenceData.USER_LOGIN_ID);
         auditLogEvent.setAuditDate(123444444);
         auditLogEvent.setAuditDateTime(auditLogEvent.getAuditDate() + 22);
-        auditLogEvent.setPerformedBy("Martel Umar");
+        auditLogEvent.setUserName("Martel Umar");
         auditLogEvent.setRemoteAddress("127.123.123.12");
         auditLogEvent.setViaAPI(true);
         auditLogEvent.setOwner("User Service");

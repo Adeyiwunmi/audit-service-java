@@ -6,7 +6,7 @@ public class AuditLogDto {
     private String auditDateTime;
     private String auditActionId;
     private String auditActionName;
-    private String performedBy;
+    private String userName;
     private String actionPerformed;
     private boolean viaAPI;
     private String remoteAddress;
@@ -63,12 +63,12 @@ public class AuditLogDto {
         this.owner = owner;
     }
 
-    public String getPerformedBy() {
-        return performedBy;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setPerformedBy(String performedBy) {
-        this.performedBy = performedBy;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getActionPerformed() {

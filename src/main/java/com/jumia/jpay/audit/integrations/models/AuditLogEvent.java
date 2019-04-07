@@ -10,7 +10,7 @@ public class AuditLogEvent {
     private long auditDateTime;
     private String auditActionId;
     private String auditActionTypeId;
-    private String performedBy;
+    private String userName;
     private String actionPerformed;
     private boolean viaAPI;
     private String remoteAddress;
@@ -57,12 +57,12 @@ public class AuditLogEvent {
         this.auditActionTypeId = auditActionTypeId;
     }
 
-    public String getPerformedBy() {
-        return performedBy;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setPerformedBy(String performedBy) {
-        this.performedBy = performedBy;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getActionPerformed() {

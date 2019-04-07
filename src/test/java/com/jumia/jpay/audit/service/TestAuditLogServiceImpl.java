@@ -43,7 +43,16 @@ public class TestAuditLogServiceImpl implements AuditLogService {
     }
 
     @Override
-    public Mono<ResponseEntity> getAuditTrails(String keyword, String fromDate, String endDate, String auditActionId, int page, int size, String sortProperty, String sorting, String auditActionTypeId, HttpServletResponse httpServletResponse) {
+    public Mono<ResponseEntity> getAuditTrails(String keyword,
+                                               String fromDate,
+                                               String endDate,
+                                               String auditActionId,
+                                               int page,
+                                               int size,
+                                               String sortProperty,
+                                               String sorting,
+                                               String auditActionTypeId,
+                                               String userName, HttpServletResponse httpServletResponse) {
         return null;
     }
 
