@@ -4,7 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jumia.jpay.audit.domain.AuditLog;
 import com.jumia.jpay.audit.integrations.models.AuditLogEvent;
-import com.jumia.jpay.audit.util.AuditLogAdapter;
+import com.jumia.jpay.audit.reference_data.AuditActionReferenceData;
+import com.jumia.jpay.audit.reference_data.AuditActionTypeReferenceData;
+import com.jumia.jpay.audit.util.adapters.AuditLogAdapter;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -36,8 +38,9 @@ public class AuditLogAdapterTests {
 
     private String getValidAuditEventString() {
         AuditLogEvent auditLogEvent = new AuditLogEvent();
-        auditLogEvent.setActionPerformed("Sample Event action performed");
-        auditLogEvent.setAuditActionName("Sample event action name");
+        auditLogEvent.setActionPerformed("Successful Login Attempt");
+        auditLogEvent.setAuditActionId(AuditActionReferenceData.USER_ACTION_ID);
+        auditLogEvent.setAuditActionTypeId(AuditActionTypeReferenceData.USER_LOGIN_ID);
         auditLogEvent.setAuditDate(123444444);
         auditLogEvent.setAuditDateTime(auditLogEvent.getAuditDate() + 22);
         auditLogEvent.setPerformedBy("Martel Umar");

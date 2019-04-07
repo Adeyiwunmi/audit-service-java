@@ -1,9 +1,8 @@
 package com.jumia.jpay.audit.integrations;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jumia.jpay.audit.domain.AuditLog;
 import com.jumia.jpay.audit.repositories.AuditLogRepository;
-import com.jumia.jpay.audit.util.AuditLogAdapter;
+import com.jumia.jpay.audit.util.adapters.AuditLogAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

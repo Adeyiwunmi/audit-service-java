@@ -1,10 +1,15 @@
 package com.jumia.jpay.audit.integrations.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jumia.jpay.audit.reference_data.AuditActionReferenceData;
+import org.apache.commons.lang3.StringUtils;
+
 public class AuditLogEvent {
     private String id;
     private long auditDate;
     private long auditDateTime;
-    private String auditActionName;
+    private String auditActionId;
+    private String auditActionTypeId;
     private String performedBy;
     private String actionPerformed;
     private boolean viaAPI;
@@ -36,12 +41,20 @@ public class AuditLogEvent {
         this.auditDateTime = auditDateTime;
     }
 
-    public String getAuditActionName() {
-        return auditActionName;
+    public String getAuditActionId() {
+        return auditActionId;
     }
 
-    public void setAuditActionName(String auditActionName) {
-        this.auditActionName = auditActionName;
+    public void setAuditActionId(String auditActionId) {
+        this.auditActionId = auditActionId;
+    }
+
+    public String getAuditActionTypeId() {
+        return auditActionTypeId;
+    }
+
+    public void setAuditActionTypeId(String auditActionTypeId) {
+        this.auditActionTypeId = auditActionTypeId;
     }
 
     public String getPerformedBy() {
@@ -84,4 +97,18 @@ public class AuditLogEvent {
         this.owner = owner;
     }
 
+    @JsonIgnore
+    public boolean isChangePasswordEvent() {
+        return StringUtils.equals(AuditActionReferenceData.USER_ACTION_ID, this.auditActionTypeId);
+    }
+
+    @JsonIgnore
+    public boolean isAddPaymentSettingEvent() {
+        return StringUtils.equals(AuditActionReferenceData.USER_ACTION_ID, this.auditActionTypeId);
+    }
+
+    @JsonIgnore
+    public boolean isEditPaymentSettingEvent() {
+        return StringUtils.equals(AuditActionReferenceData.USER_ACTION_ID, this.auditActionTypeId);
+    }
 }

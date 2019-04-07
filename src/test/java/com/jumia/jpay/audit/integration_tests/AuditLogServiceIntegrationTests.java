@@ -1,6 +1,8 @@
 package com.jumia.jpay.audit.integration_tests;
 
 import com.jumia.jpay.audit.domain.AuditLog;
+import com.jumia.jpay.audit.reference_data.AuditActionReferenceData;
+import com.jumia.jpay.audit.reference_data.AuditActionTypeReferenceData;
 import com.jumia.jpay.audit.repositories.AuditLogRepository;
 import com.jumia.jpay.audit.service.contract.AuditLogService;
 import org.junit.After;
@@ -68,8 +70,9 @@ public class AuditLogServiceIntegrationTests {
     public void saveSampleAudit() {
         AuditLog auditLog = new AuditLog();
         auditLog.setId("1234");
-        auditLog.setActionPerformed("Created New Charging profile, TYpe=> Interbank Transfers, Name=> My Sample Charging Profile");
-        auditLog.setAuditActionName("Charging Profiles");
+        auditLog.setActionPerformed("Created New Merchant, Category=> Internet Service Providers, Name=> IPNX Nigeria");
+        auditLog.setAuditActionId(AuditActionReferenceData.MERCHANT_ACTION_ID);
+        auditLog.setAuditActionTypeId(AuditActionTypeReferenceData.NEW_MERCHANT_CREATED_ID);
         auditLog.setViaAPI(false);
         auditLog.setAuditDateTime(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
         auditLogRepository.save(auditLog);

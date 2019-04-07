@@ -1,6 +1,8 @@
 package com.jumia.jpay.audit.domain;
 
 import com.jumia.jpay.audit.dto.AuditLogDto;
+import com.jumia.jpay.audit.reference_data.AuditActionReferenceData;
+import com.jumia.jpay.audit.reference_data.AuditActionTypeReferenceData;
 import com.jumia.jpay.audit.util.Constants;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
@@ -20,12 +22,29 @@ public class AuditLog {
     private String actionPerformed;
     private long auditDate;
     private long auditDateTime;
-    private String auditActionName;
+    private String auditActionId;
+    private String auditActionTypeId;
     private String performedBy;
     private boolean viaAPI;
     private String remoteAddress;
-    private String owner;
     private String serviceName;
+
+
+    public String getAuditActionId() {
+        return auditActionId;
+    }
+
+    public void setAuditActionId(String auditActionId) {
+        this.auditActionId = auditActionId;
+    }
+
+    public String getAuditActionTypeId() {
+        return auditActionTypeId;
+    }
+
+    public void setAuditActionTypeId(String auditActionTypeId) {
+        this.auditActionTypeId = auditActionTypeId;
+    }
 
     public String getId() {
         return id;
@@ -67,13 +86,6 @@ public class AuditLog {
         this.auditDateTime = auditDateTime;
     }
 
-    public String getAuditActionName() {
-        return auditActionName;
-    }
-
-    public void setAuditActionName(String auditActionName) {
-        this.auditActionName = auditActionName;
-    }
 
     public String getPerformedBy() {
         return performedBy;
@@ -99,14 +111,6 @@ public class AuditLog {
         this.remoteAddress = remoteAddress;
     }
 
-    public String getOwner() {
-        return owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
-
     public String getServiceName() {
         return serviceName;
     }
@@ -122,11 +126,13 @@ public class AuditLog {
         dto.setAuditDateTime(getAuditDateTime() == 0 ? null : new LocalDateTime(getAuditDateTime()).toString("MM/dd/YYYY HH:mm:ss"));
         dto.setActionPerformed(getActionPerformed());
         dto.setPerformedBy(getPerformedBy());
-        dto.setOwner(getOwner());
         dto.setRemoteAddress(getRemoteAddress());
         dto.setViaAPI(isViaAPI());
         dto.setId(getId());
-        dto.setAuditActionName(getAuditActionName());
+        dto.setAuditActionId(getAuditActionId());
+        dto.setAuditActionTypeId(getAuditActionTypeId());
+        dto.setAuditActionName(AuditActionReferenceData.getAuditActionNameById(getAuditActionId()));
+        dto.setAuditActionTypeName(AuditActionTypeReferenceData.findAuditActionTypeNameById(getAuditActionTypeId()));
         return dto;
     }
 }

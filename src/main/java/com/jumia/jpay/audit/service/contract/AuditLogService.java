@@ -21,5 +21,10 @@ public interface AuditLogService {
                                         int size,
                                         String sortProperty,
                                         String sorting,
+                                        String auditActionTypeId,
                                         HttpServletResponse httpServletResponse);
+
+    Mono<ResponseEntity> getAllAuditActions();
+
+    Mono<ResponseEntity> getAllAuditActionTypes();
 }

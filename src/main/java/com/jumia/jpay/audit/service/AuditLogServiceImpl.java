@@ -1,9 +1,17 @@
 package com.jumia.jpay.audit.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jumia.jpay.audit.domain.AuditAction;
+import com.jumia.jpay.audit.domain.AuditActionType;
 import com.jumia.jpay.audit.domain.AuditLog;
+import com.jumia.jpay.audit.dto.AuditActionTypeDto;
 import com.jumia.jpay.audit.dto.AuditLogDto;
+import com.jumia.jpay.audit.dto.EnumeratedEntityDto;
 import com.jumia.jpay.audit.dto.QueryFieldDto;
+import com.jumia.jpay.audit.reference_data.AuditActionReferenceData;
+import com.jumia.jpay.audit.reference_data.AuditActionTypeReferenceData;
+import com.jumia.jpay.audit.repositories.AuditActionRepository;
+import com.jumia.jpay.audit.repositories.AuditActionTypeRepository;
 import com.jumia.jpay.audit.repositories.AuditLogRepository;
 import com.jumia.jpay.audit.service.contract.AuditLogService;
 import com.jumia.jpay.audit.util.Constants;
@@ -25,6 +33,7 @@ import reactor.core.publisher.Mono;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import static com.jumia.jpay.audit.util.ResponseUtil.*;
 
@@ -40,15 +49,18 @@ public class AuditLogServiceImpl implements AuditLogService {
 
     private ElasticsearchTemplate elasticsearchTemplate;
     private AuditLogRepository auditLogRepository;
+    private AuditActionRepository auditActionRepository;
+    private AuditActionTypeRepository auditActionTypeRepository;
 
     @Autowired
-    public void setAuditLogRepository(AuditLogRepository auditLogRepository) {
-        this.auditLogRepository = auditLogRepository;
-    }
-
-    @Autowired
-    public void setElasticsearchTemplate(ElasticsearchTemplate elasticsearchTemplate) {
+    public AuditLogServiceImpl(ElasticsearchTemplate elasticsearchTemplate
+            , AuditLogRepository auditLogRepository,
+                               AuditActionRepository auditActionRepository,
+                               AuditActionTypeRepository auditActionTypeRepository) {
         this.elasticsearchTemplate = elasticsearchTemplate;
+        this.auditLogRepository = auditLogRepository;
+        this.auditActionRepository = auditActionRepository;
+        this.auditActionTypeRepository = auditActionTypeRepository;
     }
 
     @Override
@@ -76,12 +88,16 @@ public class AuditLogServiceImpl implements AuditLogService {
                                                int size,
                                                String sortProperty,
                                                String sorting,
+                                               String auditActionTypeId,
                                                HttpServletResponse httpServletResponse) {
 
         try {
             ArrayList<QueryFieldDto> filterCriteria = new ArrayList<>();
             if (!StringUtils.isEmpty(auditActionId)) {
                 filterCriteria.add(new QueryFieldDto(auditActionId, "String", "auditActionId", null, null));
+            }
+            if (!StringUtils.isEmpty(auditActionId)) {
+                filterCriteria.add(new QueryFieldDto(auditActionTypeId, "String", "auditActionTypeId", null, null));
             }
             if (!StringUtils.isEmpty(fromDate) && !StringUtils.isEmpty(endDate)) {
                 filterCriteria.add(new QueryFieldDto(null, "DateTime", "auditDate", fromDate, endDate));
@@ -125,6 +141,40 @@ public class AuditLogServiceImpl implements AuditLogService {
             return Mono.just(new ResponseEntity<>("Invalid Date format , please use yyyy-MM-dd", HttpStatus.BAD_REQUEST));
         } catch (Exception e) {
             return LogAndReturnError(logger, "An error occurred while getting audit logs", e);
+        }
+    }
+
+    @Override
+    public Mono<ResponseEntity> getAllAuditActions() {
+        try {
+            Collection<AuditAction> actions = AuditActionReferenceData.getCachedAuditActions().values();
+            if (actions.isEmpty()) {
+                return NoRecordResponse();
+            }
+            ArrayList<EnumeratedEntityDto> enumeratedEntityDtos = new ArrayList<>();
+            actions.forEach(auditAction -> {
+                enumeratedEntityDtos.add(auditAction.convertToDto());
+            });
+            return OkResponse(enumeratedEntityDtos);
+        } catch (Exception e) {
+            return LogAndReturnError(logger, "An error occurred while getting all audit actions", e);
+        }
+    }
+
+    @Override
+    public Mono<ResponseEntity> getAllAuditActionTypes() {
+        try {
+            Collection<AuditActionType> actionTypes = AuditActionTypeReferenceData.getCachedAuditActionTypes().values();
+            if (actionTypes.isEmpty()) {
+                return NoRecordResponse();
+            }
+            ArrayList<AuditActionTypeDto> auditActionTypeDtos = new ArrayList<>();
+            actionTypes.forEach(actionType -> {
+                auditActionTypeDtos.add(actionType.convertToDto());
+            });
+            return OkResponse(auditActionTypeDtos);
+        } catch (Exception e) {
+            return LogAndReturnError(logger, "An error occurred while getting all audit action types", e);
         }
     }
 }
