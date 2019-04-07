@@ -16,15 +16,14 @@ public class AuditLogAdapter {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    private static final String SENSITIVE_INFO_STRING = "XXXXXXXXX Contains Sensitive Information XXXXXXX";
-
-
     public static AuditLog convertEventMessageToNewAuditLog(String eventMessage) throws IOException {
         AuditLogEvent event = objectMapper.readValue(eventMessage, AuditLogEvent.class);
+       //An invalid event is either null or has invalid audit action id or has invalid audit action type
         if (event == null) {
             return null;
         }
         AuditLogEvent auditLogEvent = AuditEventFilter.filterNewAuditEvent(event);
+
         AuditLog auditLog = new AuditLog();
         auditLog.setAuditDate(auditLogEvent.getAuditDate());
         auditLog.setAuditDateTime(auditLogEvent.getAuditDateTime());

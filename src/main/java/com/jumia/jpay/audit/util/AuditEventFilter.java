@@ -6,7 +6,9 @@ package com.jumia.jpay.audit.util;
  */
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.jumia.jpay.audit.domain.AuditActionType;
 import com.jumia.jpay.audit.integrations.models.AuditLogEvent;
+import com.jumia.jpay.audit.reference_data.AuditActionTypeReferenceData;
 
 
 public class AuditEventFilter {
@@ -19,11 +21,10 @@ public class AuditEventFilter {
      */
     public static AuditLogEvent filterNewAuditEvent(AuditLogEvent auditLogEvent) {
 
-        //These are the action types that contain sensitive info,
-        // If there are more the checks would be done here
-        if (auditLogEvent.isEditPaymentSettingEvent()
-                || auditLogEvent.isAddPaymentSettingEvent()
-                || auditLogEvent.isChangePasswordEvent()) {
+        //These are the action types that contain sensitive info
+        AuditActionType auditActionType = AuditActionTypeReferenceData.findById(auditLogEvent.getAuditActionTypeId());
+
+         if (auditActionType != null && auditActionType.isHasSensitiveInformation()) {
             auditLogEvent.setActionPerformed(BCrypt.withDefaults().
                     hashToString(12, auditLogEvent.getActionPerformed().toCharArray()));
         }

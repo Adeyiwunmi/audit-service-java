@@ -21,6 +21,7 @@ import reactor.core.publisher.Mono;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * @author adeyi.adebolu
@@ -71,8 +72,8 @@ public class AuditLogServiceIntegrationTests {
         AuditLog auditLog = new AuditLog();
         auditLog.setId("1234");
         auditLog.setActionPerformed("Created New Merchant, Category=> Internet Service Providers, Name=> IPNX Nigeria");
-        auditLog.setAuditActionId(AuditActionReferenceData.MERCHANT_ACTION_ID);
-        auditLog.setAuditActionTypeId(AuditActionTypeReferenceData.NEW_MERCHANT_CREATED_ID);
+        auditLog.setAuditActionId(UUID.randomUUID().toString());
+        auditLog.setAuditActionTypeId(UUID.randomUUID().toString());
         auditLog.setViaAPI(false);
         auditLog.setAuditDateTime(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
         auditLogRepository.save(auditLog);

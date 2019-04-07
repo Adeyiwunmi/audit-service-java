@@ -55,14 +55,4 @@ public class TestAuditLogServiceImpl implements AuditLogService {
                                                String userName, HttpServletResponse httpServletResponse) {
         return null;
     }
-
-    @Override
-    public Mono<ResponseEntity> getAllAuditActions() {
-        return null;
-    }
-
-    @Override
-    public Mono<ResponseEntity> getAllAuditActionTypes() {
-        return null;
-    }
 }

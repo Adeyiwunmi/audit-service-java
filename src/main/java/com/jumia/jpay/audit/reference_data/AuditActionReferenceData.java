@@ -16,28 +16,6 @@ public class AuditActionReferenceData {
     private static AuditActionRepository auditActionRepository = SpringContext.getBean(AuditActionRepository.class);
     private static ConcurrentHashMap<String, AuditAction> cachedAuditActions = new ConcurrentHashMap<>();
 
-    //Some Sample Audit Actions,we would be having more
-    public static final String USER_ACTION_ID = "1";
-    public static final String MERCHANT_ACTION_ID = "2";
-    public static final String PAYMENT_SETTINGS_ID = "3";
-
-
-    public static void load() {
-        loadForIdAndName(USER_ACTION_ID, "User Action");
-        loadForIdAndName(MERCHANT_ACTION_ID, "MERCHANTS");
-        loadForIdAndName(PAYMENT_SETTINGS_ID, "PAYMENT SETTINGS");
-    }
-
-    public static void loadForIdAndName(String id, String name) {
-        AuditAction auditAction = auditActionRepository.findById(id).orElse(null);
-        if (auditAction == null) {
-            auditAction = new AuditAction();
-            auditAction.setId(id);
-        }
-        auditAction.setName(name);
-        auditActionRepository.save(auditAction);
-    }
-
     /**
      * Reads all audit actions in the DB and stores to the cache
      */

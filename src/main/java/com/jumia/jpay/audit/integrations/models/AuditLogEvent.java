@@ -1,8 +1,10 @@
 package com.jumia.jpay.audit.integrations.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jumia.jpay.audit.domain.AuditAction;
+import com.jumia.jpay.audit.domain.AuditActionType;
 import com.jumia.jpay.audit.reference_data.AuditActionReferenceData;
-import org.apache.commons.lang3.StringUtils;
+import com.jumia.jpay.audit.reference_data.AuditActionTypeReferenceData;
 
 public class AuditLogEvent {
     private String id;
@@ -98,17 +100,17 @@ public class AuditLogEvent {
     }
 
     @JsonIgnore
-    public boolean isChangePasswordEvent() {
-        return StringUtils.equals(AuditActionReferenceData.USER_ACTION_ID, this.auditActionTypeId);
+    public AuditAction getAuditAction() {
+        return AuditActionReferenceData.findById(getAuditActionId());
     }
 
     @JsonIgnore
-    public boolean isAddPaymentSettingEvent() {
-        return StringUtils.equals(AuditActionReferenceData.USER_ACTION_ID, this.auditActionTypeId);
+    public AuditActionType getAuditActionType() {
+        return AuditActionTypeReferenceData.findById(getAuditActionTypeId());
     }
 
     @JsonIgnore
-    public boolean isEditPaymentSettingEvent() {
-        return StringUtils.equals(AuditActionReferenceData.USER_ACTION_ID, this.auditActionTypeId);
+    public AuditActionType getMockType(){
+        return new AuditActionType();
     }
 }

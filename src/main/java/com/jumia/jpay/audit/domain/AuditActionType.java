@@ -12,6 +12,15 @@ import org.springframework.data.elasticsearch.annotations.Document;
 @Document(indexName = Constants.AUDIT_INDEX_NAME, type = Constants.AUDIT_ACTION_TYPE_TYPE_NAME)
 public class AuditActionType extends EnumeratedEntity {
     private String auditActionId;
+    private boolean hasSensitiveInformation;
+
+    public boolean isHasSensitiveInformation() {
+        return hasSensitiveInformation;
+    }
+
+    public void setHasSensitiveInformation(boolean hasSensitiveInformation) {
+        this.hasSensitiveInformation = hasSensitiveInformation;
+    }
 
     public String getAuditActionId() {
         return auditActionId;
@@ -25,8 +34,16 @@ public class AuditActionType extends EnumeratedEntity {
         AuditActionTypeDto dto = new AuditActionTypeDto();
         dto.setId(getId());
         dto.setName(getName());
+        dto.setHasSensitiveInformation(isHasSensitiveInformation());
         dto.setAuditActionName(AuditActionReferenceData.getAuditActionNameById(getAuditActionId()));
         dto.setAuditActionId(getAuditActionId());
         return dto;
+    }
+
+    public static AuditActionType fromNameAndSensitiveInformation(String name, boolean hasSensitiveInfo) {
+        AuditActionType auditActionType = new AuditActionType();
+        auditActionType.setName(name);
+        auditActionType.setHasSensitiveInformation(hasSensitiveInfo);
+        return auditActionType;
     }
 }

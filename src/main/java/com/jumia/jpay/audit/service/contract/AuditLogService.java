@@ -24,8 +24,4 @@ public interface AuditLogService {
                                         String auditActionTypeId,
                                         String userName,
                                         HttpServletResponse httpServletResponse);
-
-    Mono<ResponseEntity> getAllAuditActions();
-
-    Mono<ResponseEntity> getAllAuditActionTypes();
 }

@@ -1,6 +1,6 @@
 package com.jumia.jpay.audit.domain;
 
-import com.jumia.jpay.audit.dto.EnumeratedEntityDto;
+import com.jumia.jpay.audit.dto.enumerated_entity.EnumeratedEntityDto;
 import org.springframework.data.annotation.Id;
 
 /**

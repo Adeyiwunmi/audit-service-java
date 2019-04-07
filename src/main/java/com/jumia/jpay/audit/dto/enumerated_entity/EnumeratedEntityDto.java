@@ -1,4 +1,4 @@
-package com.jumia.jpay.audit.dto;
+package com.jumia.jpay.audit.dto.enumerated_entity;
 
 /**
  * @author adeyi.adebolu

@@ -1,7 +1,6 @@
 package com.jumia.jpay.audit.controllers;
 
 import com.jumia.jpay.audit.dto.AuditLogDto;
-import com.jumia.jpay.audit.dto.EnumeratedEntityDto;
 import com.jumia.jpay.audit.service.contract.AuditLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -72,28 +71,6 @@ public class AuditLogController {
                                                @RequestParam("auditActionTypeId") String auditActionTypeId,
                                                @RequestParam("userName") String userName,
                                                HttpServletResponse httpServletResponse) {
-        return auditLogService.getAuditTrails(keyword, fromDate, endDate, auditActionId, page, size, sortProperty, sortType, auditActionTypeId,userName, httpServletResponse);
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/all-audit-actions", produces = "application/json")
-    @ApiOperation(value = "Get All Audit Actions", notes = "Used to get all audit actions as a dropdown on the user interface", response = EnumeratedEntityDto.class, responseContainer = "List", consumes = "application/json")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 401, message = "You are not authorized access the resource"),
-            @ApiResponse(code = 400, message = "Bad request"),
-            @ApiResponse(code = 404, message = "Not Found")})
-    public Mono<ResponseEntity> getAuditActions() {
-        return auditLogService.getAllAuditActions();
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/all-audit-action-types", produces = "application/json")
-    @ApiOperation(value = "Get All Audit Action Types", notes = "Used to get all audit action types as a dropdown on the user interface", response = EnumeratedEntityDto.class, responseContainer = "List", consumes = "application/json")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 401, message = "You are not authorized access the resource"),
-            @ApiResponse(code = 400, message = "Bad request"),
-            @ApiResponse(code = 404, message = "Not Found")})
-    public Mono<ResponseEntity> getAuditActionTypes() {
-        return auditLogService.getAllAuditActionTypes();
+        return auditLogService.getAuditTrails(keyword, fromDate, endDate, auditActionId, page, size, sortProperty, sortType, auditActionTypeId, userName, httpServletResponse);
     }
 }

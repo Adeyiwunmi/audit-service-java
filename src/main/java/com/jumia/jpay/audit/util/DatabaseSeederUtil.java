@@ -15,20 +15,7 @@ public class DatabaseSeederUtil {
 
     public static final Logger logger = LoggerFactory.getLogger(DatabaseSeederUtil.class);
 
-
-    public void doApplicationInitialisation() {
-        initReferenceData();
-        initCache();
-    }
-
-    private void initReferenceData() {
-        logger.info("Loading Reference Data ==> AuditActions");
-        AuditActionReferenceData.load();
-        logger.info("Loading Reference Data ==> AuditActionTypes");
-        AuditActionTypeReferenceData.load();
-    }
-
-    private void initCache() {
+    public void initCache() {
         logger.info("Initializing Cache ==> AuditActions");
         AuditActionReferenceData.initCache();
         logger.info("Initializing Cache ==> AuditActionTypes");

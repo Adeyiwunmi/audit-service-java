@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface AuditActionTypeRepository extends ElasticsearchRepository<AuditActionType, String> {
+    AuditActionType findByNameAndAuditActionId(String name, String auditActionId);
 }
