@@ -13,7 +13,7 @@ public class JpayAuditServiceApplication {
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(JpayAuditServiceApplication.class);
         ApplicationContext ctx = app.run(args);
-     ///   DatabaseSeederUtil seederUtil = ctx.getBean(DatabaseSeederUtil.class);
-    //    seederUtil.initCache();
+        DatabaseSeederUtil seederUtil = ctx.getBean(DatabaseSeederUtil.class);
+        seederUtil.initCache();
     }
 }
