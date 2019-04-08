@@ -4,7 +4,7 @@
 
 Getting Started
 - Pull the project
-- Select an environment(prefferably development) using sprin.profiles.active durring start up.
+- Select an environment(prefferably development) using spring.profiles.active durring start up.
 - Fill in the details needed in the properties file, e.g elastic search cluter nodes, cluster name, rabbit mq username etc
 - Visit localhost:9200/swagger-ui.html to view the endpoints documentation
 
