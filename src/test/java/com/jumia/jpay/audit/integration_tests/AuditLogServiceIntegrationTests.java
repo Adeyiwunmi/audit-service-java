@@ -1,8 +1,6 @@
 package com.jumia.jpay.audit.integration_tests;
 
 import com.jumia.jpay.audit.domain.AuditLog;
-import com.jumia.jpay.audit.reference_data.AuditActionReferenceData;
-import com.jumia.jpay.audit.reference_data.AuditActionTypeReferenceData;
 import com.jumia.jpay.audit.repositories.AuditLogRepository;
 import com.jumia.jpay.audit.service.contract.AuditLogService;
 import org.junit.After;
@@ -70,7 +68,7 @@ public class AuditLogServiceIntegrationTests {
 
     public void saveSampleAudit() {
         AuditLog auditLog = new AuditLog();
-        auditLog.setId("1234");
+        auditLog.setId(SAMPLE_VALID_AUDIT_ID);
         auditLog.setActionPerformed("Created New Merchant, Category=> Internet Service Providers, Name=> IPNX Nigeria");
         auditLog.setAuditActionId(UUID.randomUUID().toString());
         auditLog.setAuditActionTypeId(UUID.randomUUID().toString());
